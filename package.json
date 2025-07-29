@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "VITE_API_SERVICE_URL=https://saas-x39a.onrender.com ng build --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:micro-services": "node dist/micro-services/server/server.mjs"
