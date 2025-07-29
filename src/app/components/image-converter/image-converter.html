@@ -1,0 +1,62 @@
+<div class="card">
+  <div class="card-header bg-secondary text-white">
+    <h2>Image Converter</h2>
+  </div>
+  <div class="card-body">
+    <div class="mb-4">
+      <label for="image-upload" class="form-label">Select Single/Multiple images to convert </label>
+      <input type="file" class="form-control" id="image-upload" accept="image/jpeg,image/jpg,image/png,image/gif,image/bmp,image/webp,image/tiff,image/svg+xml,image/heic" 
+        (change)="onFilesSelected($event)" multiple>
+      <div class="form-text">Supported formats: JPG, JPEG, PNG, GIF, BMP, WEBP, TIFF, TIF, SVG, HEIC</div>
+      
+      <div *ngIf="errorMessage" class="alert alert-danger mt-2">
+        {{ errorMessage }}
+      </div>
+    </div>
+    
+    <!-- Display selected files -->
+    <div *ngIf="selectedFiles && selectedFiles.length > 0" class="mb-4">
+      <h5>Selected Files ({{ selectedFiles.length }})</h5>
+      <ul class="list-group">
+        <li *ngFor="let file of selectedFiles; let i = index" class="list-group-item d-flex justify-content-between align-items-center">
+          {{ file.name }} ({{ (file.size / 1024).toFixed(2) }} KB)
+          <button class="btn btn-sm btn-danger" (click)="removeFile(i)">Remove</button>
+        </li>
+      </ul>
+    </div>
+    
+    <div *ngIf="selectedFiles && selectedFiles.length > 0" class="mb-4">
+      <h5>Conversion Options</h5>
+      <div class="mb-3">
+        <label for="format" class="form-label">Convert to:</label>
+        <select class="form-select" id="format" [(ngModel)]="selectedFormat">
+          <option value="jpeg">JPEG</option>
+          <option value="png">PNG</option>
+          <option value="webp">WebP</option>
+          <option value="gif">GIF</option>
+          <option value="bmp">BMP</option>
+          <option value="tiff">TIFF</option>
+          <option value="svg">SVG</option>
+        </select>
+      </div>
+      
+      <div class="mb-3">
+        <label for="quality" class="form-label">Quality (1-100): {{ quality }}</label>
+        <input type="range" class="form-range" id="quality" min="1" max="100" [(ngModel)]="quality">
+      </div>
+      
+      <button class="btn btn-primary" (click)="convertImages()" [disabled]="isConverting">
+        <span *ngIf="isConverting" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+        {{ isConverting ? 'Converting...' : 'Convert Images' }}
+      </button>
+    </div>
+    
+    <div *ngIf="conversionResult" class="mb-3 mt-4">
+      <div class="alert alert-success">
+        <h5>Conversion Complete!</h5>
+        <p>Your images have been successfully converted to {{ selectedFormat.toUpperCase() }}.</p>
+        <button class="btn btn-success" (click)="downloadZip()">Download Converted Images</button>
+      </div>
+    </div>
+  </div>
+</div>

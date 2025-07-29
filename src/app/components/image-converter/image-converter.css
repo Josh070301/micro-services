@@ -1,0 +1,46 @@
+Users\Joshua\Desktop\2025_EverythingForApplying\Programming\Solo_Systems\AngularJS\micro-services\src\app\components\image-converter\image-converter.css
+.image-preview {
+  max-width: 100%;
+  overflow: hidden;
+  border-radius: 4px;
+}
+
+.image-preview img {
+  max-width: 100%;
+  height: auto;
+}
+
+.form-range::-webkit-slider-thumb {
+  background: #6c757d;
+}
+
+.form-range::-moz-range-thumb {
+  background: #6c757d;
+}
+
+.form-range::-ms-thumb {
+  background: #6c757d;
+}
+
+.image-preview {
+  max-width: 100%;
+  overflow: hidden;
+  border-radius: 4px;
+}
+
+.image-preview img {
+  max-width: 100%;
+  height: auto;
+}
+
+.form-range::-webkit-slider-thumb {
+  background: #6c757d;
+}
+
+.form-range::-moz-range-thumb {
+  background: #6c757d;
+}
+
+.form-range::-ms-thumb {
+  background: #6c757d;
+}

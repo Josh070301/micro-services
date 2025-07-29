@@ -1,0 +1,49 @@
+<div class="card">
+  <div class="card-header bg-secondary text-white">
+    <h2>AI Summarizer</h2>
+  </div>
+  <div class="card-body">
+    <div class="mb-4">
+      <label for="textInput" class="form-label">Enter text to summarize</label>
+      <textarea 
+        class="form-control" 
+        id="textInput"
+        [(ngModel)]="inputText" 
+        placeholder="Paste your text here (minimum 100 characters for best results)"
+        rows="6"
+      ></textarea>
+    </div>
+    
+    <div class="mb-4">
+      <label for="length" class="form-label">Summary Length:</label>
+      <select class="form-select" id="length" [(ngModel)]="summaryLength">
+        <option value="short">Short (25%)</option>
+        <option value="medium">Medium (50%)</option>
+        <option value="long">Long (75%)</option>
+      </select>
+    </div>
+    
+    <div *ngIf="errorMessage" class="alert alert-danger mt-2 mb-4">
+      {{ errorMessage }}
+    </div>
+    
+    <button 
+      class="btn btn-primary" 
+      (click)="summarizeText()" 
+      [disabled]="!inputText || inputText.length < 100 || isProcessing"
+    >
+      <span *ngIf="isProcessing" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+      {{ isProcessing ? 'Generating Summary...' : 'Summarize Text' }}
+    </button>
+    
+    <div *ngIf="summaryResult" class="mt-4">
+      <h5>Summary Result</h5>
+      <div class="p-3 bg-light border rounded">
+        <p>{{ summaryResult }}</p>
+      </div>
+      <button class="btn btn-success mt-3" (click)="copyToClipboard()">
+        Copy to Clipboard
+      </button>
+    </div>
+  </div>
+</div>
