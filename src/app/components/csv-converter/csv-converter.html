@@ -1,0 +1,64 @@
+<div class="card">
+  <div class="card-header bg-secondary text-white">
+    <h2>CSV Converter</h2>
+  </div>
+  <div class="card-body">
+    <div class="mb-4">
+      <label for="csv-upload" class="form-label">Select CSV File</label>
+      <input type="file" class="form-control" id="csv-upload" accept=".csv" 
+        (change)="onFileSelected($event)">
+      <div class="form-text">Select a CSV file to convert to another format</div>
+      
+      <div *ngIf="errorMessage" class="alert alert-danger mt-2">
+        {{ errorMessage }}
+      </div>
+    </div>
+    
+    <div *ngIf="selectedFile" class="mb-4">
+      <h5>Selected File</h5>
+      <div class="p-3 bg-light border rounded">
+        {{ selectedFile.name }} ({{ (selectedFile.size / 1024).toFixed(2) }} KB)
+      </div>
+    </div>
+    
+    <div *ngIf="selectedFile" class="mb-4">
+      <h5>Conversion Options</h5>
+      
+      <div class="mb-3">
+        <label for="output-format" class="form-label">Convert to:</label>
+        <select class="form-select" id="output-format" [(ngModel)]="outputFormat">
+          <option *ngFor="let format of outputFormats" [value]="format.value">
+            {{ format.label }}
+          </option>
+        </select>
+      </div>
+      
+      <div class="mb-3">
+        <label for="delimiter" class="form-label">CSV Delimiter:</label>
+        <select class="form-select" id="delimiter" [(ngModel)]="delimiter">
+          <option *ngFor="let delim of delimiters" [value]="delim.value">
+            {{ delim.label }}
+          </option>
+        </select>
+      </div>
+      
+      <div class="mb-3 form-check">
+        <input type="checkbox" class="form-check-input" id="hasHeader" [(ngModel)]="hasHeader">
+        <label class="form-check-label" for="hasHeader">CSV has header row</label>
+      </div>
+      
+      <button class="btn btn-primary" (click)="convertCsv()" [disabled]="isConverting">
+        <span *ngIf="isConverting" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+        {{ isConverting ? 'Converting...' : 'Convert CSV' }}
+      </button>
+    </div>
+    
+    <div *ngIf="conversionResult" class="mb-3 mt-4">
+      <div class="alert alert-success">
+        <h5>Conversion Complete!</h5>
+        <p>Your CSV has been successfully converted to {{ outputFormat.toUpperCase() }}.</p>
+        <button class="btn btn-success" (click)="downloadFile()">Download Converted File</button>
+      </div>
+    </div>
+  </div>
+</div>

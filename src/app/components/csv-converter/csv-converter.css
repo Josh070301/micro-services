@@ -1,0 +1,9 @@
+.form-check {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.form-select:focus {
+  border-color: #6c757d;
+  box-shadow: 0 0 0 0.25rem rgba(108, 117, 125, 0.25);
+}
